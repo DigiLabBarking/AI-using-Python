@@ -3,14 +3,32 @@ Python AI
 By Captain Pi & EBz
 Version 0.0.1
 """
-#imports
+#Imports
 from time import strftime
+from time import sleep
 
-#variables
+#Variables
 ID = 0
 
-#functions
-def Update():
+#Functions
+def Loading(): #LOADING
+    for x in range(100):
+        print(x+1,'%')
+        sleep(0.01)
+    return True
+
+def Title(): # TITLE INTRO
+    #Loading()
+    file = open('Title.txt','r')
+    for line in file:
+        for char in line:
+            print(char,end="")
+    file.close()
+    print("\n      By Captain Pi and EBz")
+    print("           Version 0.0.1\n")
+    return True
+
+def Update():#UPDATE FILES
     global Names
     Names = []
     try:
@@ -25,7 +43,8 @@ def Update():
         if name != '':
             Names.append(name)
     file.close()
-def Question():
+
+def Question(): #AI QUESTIONS
     X = str(input("Ask me a question\n: "))
     file = open('Symbols.txt','r')
     for symbol in file:
@@ -41,14 +60,18 @@ def Question():
             break
     if len(Words) == 0:
         Words.append(X)
+    counter = 0
     for x in Words:
+        print(x)
         if x == 'time':
-            Time()
+            print("The current time is",strftime('%H:%M:%S'))
         elif x == 'date':
-            Date()
+            print("Today's date is",strftime('%d/%m/%Y'))
         elif x == 'name':
             Name(1)
-def Name(option):
+        counter += 1
+
+def Name(option): #NAMES
     global Names,ID
     if option == 0: #start
         name = str(input("What is your name?\n: "))
@@ -59,7 +82,7 @@ def Name(option):
             if name == user:
                 User = True
                 ID = counter
-                print('Welcome back '+name)
+                print('Welcome back '+name.title())
                 break
             else:
                 counter += 1
@@ -71,23 +94,21 @@ def Name(option):
             file.close()
             ID = len(Names) - 1
             Update()
+            print("Welcome\nMy name is Lydia")
     elif option == 1: #AI
-        name = Names[ID]
-        name.title()
-        print('Your name is',name)
-def Time():
-    print(strftime('%H:%M:%S'))
-def Date():
-    print(strftime('%d/%m/%Y'))
-def Exit():
+        print('Your name is',Names[ID].title())
+
+def Exit(): #EXIT
     x = str(input('Do you want to exit?\n: '))
     x = x.lower()
     if x == 'yes' or x == 'y' or x == 'yep' or x == 'yeah':
+        file.close()
         quit()
     elif x == 'no' or x == 'n':
         return True
 
 #main
+Title()
 while True:
     try:
         Update()
