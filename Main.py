@@ -11,7 +11,7 @@ from random import choice
 ID = 0
 
 #Functions
-def Jokes():
+def Jokes(): #UPDATE JOKES
     global jokeList
     jokeList = []
     file = open('jokes.txt','r')
@@ -28,11 +28,11 @@ def Loading(): #LOADING
 
 def Title(): # TITLE INTRO
     #Loading()
-    file = open('Title.txt','r')
-    for line in file:
-        for char in line:
-            print(char,end="")
-    file.close()
+    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
+    for x in Title:
+        for y in x:
+            print(y,end="")
+        print('')
     print("\n      By Captain Pi and EBz")
     print("           Version 0.0.1\n")
     return True
