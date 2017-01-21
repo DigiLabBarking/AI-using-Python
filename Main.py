@@ -6,9 +6,24 @@ Version 0.0.1
 #Imports
 from time import strftime
 from time import sleep
+import random
+joke_list = [joke1, joke2, joke3, joke4,] #list of functions
 
 #Variables
 ID = 0
+
+#Joke Functions
+def joke1():
+    print("I wondered why the frisbee was getting bigger, and then it hit me.")
+def joke2():
+    print("I used to like my neighbors, until they put a password on their Wi-Fi.")
+def joke3():
+    print("If practice makes perfect, and nobody's perfect, why practice?")
+def joke4():
+    print("I once farted in an elevator, it was wrong on so many levels.")
+def joke5():
+    print("What do you call a bear with no teeth? -- A gummy bear!")
+
 
 #Functions
 def Loading(): #LOADING
@@ -64,12 +79,15 @@ def Question(): #AI QUESTIONS
     for x in Words:
         print(x)
         if x == 'time':
-            print("The current time is",strftime('%H:%M:%S'))
+            print("The current time is",strftime('%H:%M'))
         elif x == 'date':
             print("Today's date is",strftime('%d/%m/%Y'))
         elif x == 'name':
             Name(1)
-        counter += 1
+            counter += 1
+        elif x == 'joke':
+            joke = random.choice(joke_list)
+            joke()
 
 def Name(option): #NAMES
     global Names,ID
