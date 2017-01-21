@@ -13,21 +13,35 @@ ID = 0
 def Update():
     global Names
     Names = []
-    file = open('Names.txt','r')
+    try:
+        file = open('Names.txt','r')
+    except FileNotFoundError:
+        file = open('Names.txt','w')
+        file.close()
+        file = open('Names.txt','r')
     line = file.readline()
     line = line.split(',')
     for name in line:
         if name != '':
             Names.append(name)
-    print(Names)
     file.close()
 def Question():
     X = str(input("Ask me a question\n: "))
     file = open('Symbols.txt','r')
     for symbol in file:
-        X.replace(symbol,'')
-    X.lower().split(" ")
+        symbol = symbol.replace('\n','')
+        X = X.replace(symbol,'')
+    X = X.lower()
+    Words = []
     for x in X:
+        if x == " ":
+            X = X.split()
+            for y in X:
+                Words.append(y)
+            break
+    if len(Words) == 0:
+        Words.append(X)
+    for x in Words:
         if x == 'time':
             Time()
         elif x == 'date':
