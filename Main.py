@@ -21,12 +21,7 @@ def Loading(): #LOADING
 
 def Title(): # TITLE INTRO
     global Platform
-    #Loading()
-    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
-    for x in Title:
-        for y in x:
-            print(y,end="")
-        print('')
+    
     print("\n      By Captain Pi and EBz")
     print("           Version 0.0.1")
     print("        running on: ",Platform,'\n')
@@ -69,10 +64,10 @@ def Update():#UPDATE FILES
         file = open('feelings.txt','r')
     for line in file:
         feelingsList.append(line.replace('\n',''))
-    print(feelingsList)
+    
 
 def Question(): #AI QUESTIONS
-    global jokeList
+    global jokeList,FeelingsList
     X = str(input("Ask me a question\n: "))
     file = open('Symbols.txt','r')
     for symbol in file:
@@ -101,7 +96,12 @@ def Question(): #AI QUESTIONS
                 print('My name is Lydia')
         elif x == 'joke':
             print(choice(jokeList))
-        counter += 1
+            counter += 1
+        elif x == 'feeling':
+            if Words[counter-1] == 'you':
+                print("I am feeling",choice(feelingsList))
+        counter +=1
+                
 
 def Name(option): #NAMES
     global Names,ID
