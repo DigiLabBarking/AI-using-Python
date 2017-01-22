@@ -21,22 +21,18 @@ def Loading(): #LOADING
 
 def Title(): # TITLE INTRO
     global Platform
-    #Loading()
-    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
-    for x in Title:
-        for y in x:
-            print(y,end="")
-        print('')
+    
     print("\n      By Captain Pi and EBz")
     print("           Version 0.0.1")
     print("        running on: ",Platform,'\n')
     return True
 
 def Update():#UPDATE FILES
-    global Names,jokeList,feelingsList
+    global Names,jokeList,feelingsList,factlist
     Names = []
     jokeList = []
     feelingsList = []
+    factlist = []
     #Names
     try:
         file = open('Names.txt','r')
@@ -60,6 +56,7 @@ def Update():#UPDATE FILES
     for line in file:
         jokeList.append(line.replace('\n',''))
     file.close()
+    
     #Feelings
     try:
         file = open('feelings.txt','r')
@@ -69,11 +66,22 @@ def Update():#UPDATE FILES
         file = open('feelings.txt','r')
     for line in file:
         feelingsList.append(line.replace('\n',''))
-    print(feelingsList)
+    
+        #Factlist
+    try:
+        file = open('randomfacts.txt','r')
+    except FileNotFoundError:
+        file = open('randomfacts.txt','w')
+        file.close()
+        file = open('randomfacts.txt','r')
+    for line in file:
+        factlist.append(line.replace('\n',''))
+    
+    
 
 def Question(): #AI QUESTIONS
-    global jokeList
-    X = str(input("Ask me a question\n: "))
+    global jokeList,FeelingsList,factlist
+    X = str(input("What would you like?\n: "))
     file = open('Symbols.txt','r')
     for symbol in file:
         symbol = symbol.replace('\n','')
@@ -101,7 +109,20 @@ def Question(): #AI QUESTIONS
                 print('My name is Lydia')
         elif x == 'joke':
             print(choice(jokeList))
-        counter += 1
+            counter += 1
+        elif x == 'feeling':
+            if Words[counter-1] == 'you':
+                print("I am feeling",choice(feelingsList))
+
+        elif x == 'fact':
+            if Words[counter-1] == 'a':
+                print ("Here is a fact:",choice(factlist))
+        #counter +=1
+        elif x == 'you':
+            if Words[counter-1] == 'are':
+                if Words[counter-2] == 'who':
+                    print ("I am an artificial intelligence.\nI was created by Justinas Grigas and Ebenezer Odubanjo.")
+        counter +=1
 
 def Name(option): #NAMES
     global Names,ID
@@ -135,7 +156,7 @@ def Exit(): #EXIT
     x = x.lower()
     if x == 'yes' or x == 'y' or x == 'yep' or x == 'yeah':
         quit()
-    elif x == 'no' or x == 'n':
+    elif x == 'no' or x == 'n' or x == 'nope' or x == 'nah':
         return True
 
 #main
