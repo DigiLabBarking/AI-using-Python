@@ -1,166 +1,159 @@
 """
 Python AI
 By Captain Pi & EBz
-Version 0.0.1
+Version 0.0.2
 """
+
 #Imports
-from time import strftime,sleep
+from time import *
 from random import choice
 import platform
+import calendar
 
 #Variables
 ID = 0
-Platform = platform.platform().split('-')[0]
+yy = 2016
+mm = 1
 
 #Functions
-
-def Loading(): #LOADING
-    for x in range(100):
-        print(x+1,'%')
-    return True
-
-def Title(): # TITLE INTRO
-    global Platform
-    
-    print("\n      By Captain Pi and EBz")
-    print("           Version 0.0.1")
-    print("        running on: ",Platform,'\n')
-    return True
-
 def Update():#UPDATE FILES
-    global Names,jokeList,feelingsList,factlist
-    Names = []
-    jokeList = []
+    global namesList,jokesList,feelingsList,factsList
+    #Variables
+    namesList = []
+    jokesList = []
     feelingsList = []
-    factlist = []
-    #Names
+    factsList = []
+    #namesList
     try:
-        file = open('Names.txt','r')
+        file = open('namesList.txt','r')
     except FileNotFoundError:
-        file = open('Names.txt','w')
-        file.close()
-        file = open('Names.txt','r')
-    line = file.readline()
-    line = line.split(',')
-    for name in line:
-        if name != '':
-            Names.append(name)
+        file = open('namesList.txt','w').close()
+        file = open('namesList.txt','r')
+    line = file.readline().split(',')
+    for i in line:
+        if i != '' and i.isalpha() == True:
+            namesList.append(i)
     file.close()
     #Jokes
     try:
-        file = open('jokes.txt','r')
+        file = open('jokesList.txt','r')
     except FileNotFoundError:
-        file = open('jokes.txt','w')
-        file.close()
-        file = open('jokes.txt','r')
+        file = open('jokesList.txt','w').close()
+        file = open('jokesList.txt','r')
     for line in file:
-        jokeList.append(line.replace('\n',''))
+        jokesList.append(line.replace('\n',''))
     file.close()
-    
-    #Feelings
+    #feelingsList
     try:
-        file = open('feelings.txt','r')
+        file = open('feelingsList.txt','r')
     except FileNotFoundError:
-        file = open('feelings.txt','w')
-        file.close()
-        file = open('feelings.txt','r')
+        file = open('feelingsList.txt','w').close()
+        file = open('feelingsList.txt','r')
     for line in file:
         feelingsList.append(line.replace('\n',''))
-    
-        #Factlist
+    file.close()
+    #factsList
     try:
-        file = open('randomfacts.txt','r')
+        file = open('factsList.txt','r')
     except FileNotFoundError:
-        file = open('randomfacts.txt','w')
-        file.close()
-        file = open('randomfacts.txt','r')
+        file = open('factsList.txt','w').close()
+        file = open('factsList.txt','r')
     for line in file:
-        factlist.append(line.replace('\n',''))
-    
-    
+        factsList.append(line.replace('\n',''))
+    file.close()
+    return True
+
+def Title(): # TITLE INTRO
+    print('\n      By Captain Pi and EBz\n           Version 0.0.2\n        running on:',platform.platform().split('-')[0],'\n')
+    return True
 
 def Question(): #AI QUESTIONS
-    global jokeList,FeelingsList,factlist
-    X = str(input("What would you like?\n: "))
-    file = open('Symbols.txt','r')
+    global jokesList,feelingsList,factsList
+    #Input
+    i = str(input(': '))
+    file = open('symbolsList.txt','r')
     for symbol in file:
-        symbol = symbol.replace('\n','')
-        X = X.replace(symbol,'')
-    X = X.lower()
-    Words = []
-    for x in X:
-        if x == " ":
-            X = X.split()
-            for y in X:
-                Words.append(y)
+        i = i.replace(symbol.replace('\n',''),'').lower()
+    Input = []
+    for ii in i:
+        if ii == " ":
+            i = i.split()
+            for ii in i:
+                Input.append(ii)
             break
-    if len(Words) == 0:
-        Words.append(X)
-    counter = 0
-    for x in Words:
-        if x == 'time':
-            print("The current time is",strftime('%H:%M:%S'))
-        elif x == 'date':
+    if len(Input) == 0:
+        Input.append(i)
+    i = 0
+    #Questions
+    for word in Input:
+        if word == 'time':
+            print('The current time is',strftime('%H:%M:%S'))
+        elif word == 'date' or word == 'day':
             print("Today's date is",strftime('%d/%m/%Y'))
-        elif x == 'name':
-            if Words[counter-1] == 'my':
+        elif word == 'calendar':
+            yy = int(input("Enter year: "))
+            mm = int(input("Enter month(for example 1 for January)\n: "))
+            print(calendar.month(yy, mm))
+            
+        elif word == 'you':
+            if Input[i-1] == 'hate':
+                print("I dont hate, only love.")
+            elif Input[i-1] == 'love':
+                print("I love you too")
+        elif word == 'name':
+            if Input[i-1] == 'my':
                 Name(1)
-            else:
+            elif Input[i-1] == 'your':
                 print('My name is Lydia')
-        elif x == 'joke':
-            print(choice(jokeList))
-            counter += 1
-        elif x == 'feeling':
-            if Words[counter-1] == 'you':
-                print("I am feeling",choice(feelingsList))
-
-        elif x == 'fact':
-            if Words[counter-1] == 'a':
-                print ("Here is a fact:",choice(factlist))
-        #counter +=1
-        elif x == 'you':
-            if Words[counter-1] == 'are':
-                if Words[counter-2] == 'who':
-                    print ("I am an artificial intelligence.\nI was created by Justinas Grigas and Ebenezer Odubanjo.")
-        counter +=1
+        elif word == 'joke':
+            print(choice(jokesList))
+        elif word == 'feeling':
+            if Input[i-1] == 'you':
+                print('I am feeling',choice(feelingsList))
+        elif word == 'fact':
+            if Input[i-1] == 'a':
+                print ('Here is a fact:\n',choice(factsList))                
+        elif word == 'you':
+            try:
+                if Input[i-1] == 'are' and Input[i-2] == 'who' or Input[i-2] == 'what':
+                    print ('I am an artificial intelligence.\nI was created by Justinas Grigas and Ebenezer Odubanjo.')
+            except IndexError:
+                continue
+        i += 1
 
 def Name(option): #NAMES
-    global Names,ID
+    global namesList,ID
     if option == 0: #start
-        name = str(input("What is your name?\n: "))
-        name = name.lower()
+        name = str(input('What is your name?\n: ')).lower()
         User = False
-        counter = 0
-        for user in Names:
+        i = 0
+        for user in namesList:
             if name == user:
                 User = True
-                ID = counter
+                ID = i
                 print('Welcome back '+name.title())
                 break
             else:
-                counter += 1
+                i += 1
         if User == False:
-            Names.append(name)
-            file = open('Names.txt','w')
-            for user in Names:
+            namesList.append(name)
+            file = open('namesList.txt','w')
+            for user in namesList:
                 file.write(user+',')
             file.close()
-            ID = len(Names) - 1
+            ID = len(namesList) - 1
             Update()
-            print("Welcome\nMy name is Lydia")
+            print('Welcome\nMy name is Lydia')
     elif option == 1: #AI
-        print('Your name is',Names[ID].title())
+        print('Your name is',namesList[ID].title())
 
 def Exit(): #EXIT
-    x = str(input('Do you want to exit?\n: '))
-    x = x.lower()
-    if x == 'yes' or x == 'y' or x == 'yep' or x == 'yeah':
+    i = str(input('Do you want to exit?\n: ')).lower()
+    if i == 'yes' or i == 'y' or i == 'yep' or i == 'yeah':
         quit()
-    elif x == 'no' or x == 'n' or x == 'nope' or x == 'nah':
-        return True
 
 #main
-    Title()
+Title()
 while True:
     try:
         Update()
