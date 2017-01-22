@@ -28,10 +28,7 @@ def Loading(): #LOADING
 
 def Title(): # TITLE INTRO
     #Loading()
-    try:
         Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
-    except UnicodeDecodeError:
-        print('BOB')
     for x in Title:
         for y in x:
             print(y,end="")
@@ -121,7 +118,10 @@ def Exit(): #EXIT
         return True
 
 #main
-Title()
+try:
+    Title()
+except UnicodeDecodeError:
+    print('BOB')
 Jokes()
 while True:
     try:
