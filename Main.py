@@ -8,22 +8,11 @@ from time import strftime,sleep
 from random import choice
 import platform
 
-platform = platform.platform()
-platform = platform.split('-')
-
 #Variables
 ID = 0
+Platform = platform.platform().split('-')[0]
 
 #Functions
-def Jokes(): #UPDATE JOKES
-    global jokeList
-    jokeList = []
-    file = open('jokes.txt','r')
-    for line in file:
-        line = line.replace('\n','')
-        jokeList.append(line)
-    file.close()
-    return True
 
 def Loading(): #LOADING
     for x in range(100):
@@ -31,20 +20,24 @@ def Loading(): #LOADING
     return True
 
 def Title(): # TITLE INTRO
+    global Platform
     #Loading()
-    #Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
-    #for x in Title:
-    #    for y in x:
-    #        print(y,end="")
-    #    print('')
+    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
+    for x in Title:
+        for y in x:
+            print(y,end="")
+        print('')
     print("\n      By Captain Pi and EBz")
-    print("           Version 0.0.1\n")
-    print("running on: ",platform.platform())
+    print("           Version 0.0.1")
+    print("        running on: ",Platform,'\n')
     return True
 
 def Update():#UPDATE FILES
-    global Names
+    global Names,jokeList,feelingsList
     Names = []
+    jokeList = []
+    feelingsList = []
+    #Names
     try:
         file = open('Names.txt','r')
     except FileNotFoundError:
@@ -57,6 +50,26 @@ def Update():#UPDATE FILES
         if name != '':
             Names.append(name)
     file.close()
+    #Jokes
+    try:
+        file = open('jokes.txt','r')
+    except FileNotFoundError:
+        file = open('jokes.txt','w')
+        file.close()
+        file = open('jokes.txt','r')
+    for line in file:
+        jokeList.append(line.replace('\n',''))
+    file.close()
+    #Feelings
+    try:
+        file = open('feelings.txt','r')
+    except FileNotFoundError:
+        file = open('feelings.txt','w')
+        file.close()
+        file = open('feelings.txt','r')
+    for line in file:
+        feelingsList.append(line.replace('\n',''))
+    print(feelingsList)
 
 def Question(): #AI QUESTIONS
     global jokeList
@@ -82,7 +95,10 @@ def Question(): #AI QUESTIONS
         elif x == 'date':
             print("Today's date is",strftime('%d/%m/%Y'))
         elif x == 'name':
-            Name(1)
+            if Words[counter-1] == 'my':
+                Name(1)
+            else:
+                print('My name is Lydia')
         elif x == 'joke':
             print(choice(jokeList))
         counter += 1
@@ -123,11 +139,7 @@ def Exit(): #EXIT
         return True
 
 #main
-try:
     Title()
-except UnicodeDecodeError:
-    print('BOB')
-Jokes()
 while True:
     try:
         Update()
