@@ -1,2 +1,3 @@
 # AI-using-Python
-Simple AI created using Python and developed by Captain Pi and EBz
+Version 0.0.1
+Simple AI created and developed by Captain Pi and EBz using Python.
