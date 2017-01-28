@@ -1,16 +1,18 @@
 """
 Python AI
 By Captain Pi & EBz
-Version 0.0.2
+Version 0.0.3
 """
 
 #Imports
 from time import *
 from random import choice
+from calendar import month
 import platform
 
 #Variables
 ID = 0
+Version = ('0.0.3')
 
 #Functions
 def Update():#UPDATE FILES
@@ -61,12 +63,12 @@ def Update():#UPDATE FILES
     return True
 
 def Title(): # TITLE INTRO
-    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                ╫','║ ⌠◙┐ ⌠◙\ /◙┐ ⌠◙▒▓☒\ ⌠◙┐  ⌠◙█☒╖  ║','│ │▒║  \▓∨▓/  │▒┌╤\▒ │█║ │▓║☢║▓╖ │','☯ ║▓║   ║▓╫   ║▓╫☯╫▓ ║▓▒ ║█▒▓▒█║ ☯','│ │▒└__ │▓║   │▒└╧/▒ │█╫ │█╫ ║█╫ │','║ ⌡◙▒▓▒ ⌡█╝   ⌡◙▒▓☒/ ⌡◙╝ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯ ¯¯¯   ¯¯¯¯¯  ¯¯¯ ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
+    Title = ['⌠☒☒☯☢◙◙▒▒▒▓▓▓▓▓██████████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╖','╫                                      ╫','║ ⌠◙┐   ⌠◙\ /◙┐ ⌠◙▒▓☒\   ⌠◙┐    ⌠◙█☒╖  ║','│ │▒║    \▓∨▓/  │▒┌╤\▒   │█║   │▓║☢║▓╖ │','☯ ║▓║     ║▓╫   ║▓╫☯╫▓   ║▓▒   ║█▒▓▒█║ ☯','│ │▒└__   │▓║   │▒└╧/▒   │█╫   │█╫ ║█╫ │','║ ⌡◙▒▓▒ ☢ ⌡█╝ ☢ ⌡◙▒▓☒/ ☢ ⌡◙╝ ☢ ⌡▒╝ └▒╝ ║','╫ ¯¯¯¯¯   ¯¯¯   ¯¯¯¯¯    ¯¯¯   ¯¯¯  ¯¯ ╫','⌡☒☒☯☢◙◙▒▒▒▓▓▓▓▓██████████▓▓▓▓▓▒▒▒◙◙☢☯☒☒╝']
     for i in Title:
         for ii in i:
             print(ii,end="")
         print('')
-    print('\n      By Captain Pi and EBz\n           Version 0.0.2\n        running on:',platform.platform().split('-')[0],'\n')
+    print('\n      By Captain Pi and EBz\n           Version',Version,'\n        running on:',platform.platform().split('-')[0],'\n')
     return True
 
 def Question(): #AI QUESTIONS
@@ -111,6 +113,45 @@ def Question(): #AI QUESTIONS
                     print ('I am an artificial intelligence.\nI was created by Justinas Grigas and Ebenezer Odubanjo.')
             except IndexError:
                 continue
+        elif word == 'timer':
+            if Input[i+2].isdigit() == True:
+                if Timer(int(Input[i+2])):
+                    print('The timer has ended sucessfully\nThe timer has been on for',Input[i+2],'minutes\nThe current time now is',strftime('%H:%M:%S'))
+                else:
+                    print('The timer has been interrupted')
+        elif word == 'calendar':
+            try:
+                if Input[i+3].isdigit() == True:
+                    if Input[i+2].isdigit() == True:
+                        print(month(int(Input[i+3]),int(Input[i+2])))
+                    elif Input[i+2].isalpha() == True:
+                        months=['january','february','march','april','may','june','july','august','september','october','december','november',]
+                        for x in range(len(months)):
+                            if months[x] == Input[i+2]:
+                                mon = x+1
+                                break
+                        print(month(int(Input[i+3]),int(mon)))
+                else:
+                    print('I do not understand your command')
+            except IndexError:
+                print('I do not understand your command')
+        elif word == 'plus' or word == '+':
+            if Input[i-1].isdigit() == True and Input[i+1].isdigit() == True:
+                print(int(Input[i-1])+int(Input[i+1]))
+        elif word == 'minus' or word == '-':
+            if Input[i-1].isdigit() == True and Input[i+1].isdigit() == True:
+                print(int(Input[i-1])-int(Input[i+1]))
+        elif word == 'times' or word == '*':
+            if Input[i-1].isdigit() == True and Input[i+1].isdigit() == True:
+                print(int(Input[i-1])*int(Input[i+1]))
+        elif word == 'divide' or word == '/':
+            if Input[i-1].isdigit() == True and Input[i+1].isdigit() == True:
+                print(int(Input[i-1])/int(Input[i+1]))
+        elif word == 'hello' or word == 'hey' or word == 'hi':
+            print("Hello!")
+        elif word == 'bye' or word == 'adieu' or word == 'adios':
+            print("Good Bye!")
+        #END counter
         i += 1
 
 def Name(option): #NAMES
@@ -139,17 +180,28 @@ def Name(option): #NAMES
     elif option == 1: #AI
         print('Your name is',namesList[ID].title())
 
+def Timer(x):
+    seconds = x * 60
+    print('The current time is',strftime('%H:%M:%S'))
+    try:
+        for x in range(seconds):
+            sleep(1)
+        return True
+    except KeyboardInterrupt:
+        return False
+
 def Exit(): #EXIT
     i = str(input('Do you want to exit?\n: ')).lower()
     if i == 'yes' or i == 'y' or i == 'yep' or i == 'yeah':
         quit()
-
+        
 #main
 Title()
+Update()
+Name(0)
 while True:
     try:
         Update()
-        Name(0)
         while True:
             Question()
     except KeyboardInterrupt:
